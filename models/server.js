@@ -1,6 +1,6 @@
-import express from "express";
-import cors from "cors";
-import { dbConnection } from "../database/config.js";
+const express = require('express');
+const cors = require('cors');
+const {dbConnection} = require('../database/config.js');
 
 class Server {
     constructor(){
@@ -31,4 +31,4 @@ class Server {
     }
 }
 
-export default Server;
+module.exports = Server;

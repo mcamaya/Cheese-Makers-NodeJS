@@ -1,10 +1,10 @@
-import dotenv from "dotenv";
-import Server from "./models/server.js";
-import usuarioRouter from "./routes/usuario.routes.js";
+const dotenv = require('dotenv');
+const Server = require('./models/server.js');
+
 
 const config = dotenv.config();
 
 const server = new Server();
 
 server.listen();
-server.routes(["/usuarios", usuarioRouter])
+server.routes(["/usuarios", require('./routes/usuario.routes.js')])
