@@ -35,8 +35,14 @@ const postUsers = async (req, res) => {
 
 };
 
-const deleteUsers = (req, res) => {
-    res.json({"message":"delete api"});
+const deleteUsers = async (req, res) => {
+    try {
+        await Usuario.deleteOne({_id:req.params.id});
+        res.json(204).send()
+    } catch (error) {
+        res.status(400);
+        res.send(error.message);
+    }
 };
 
 const putUsers = (req, res) => {

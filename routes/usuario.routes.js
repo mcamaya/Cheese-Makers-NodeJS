@@ -3,6 +3,7 @@ const {validateDocuments} = require('../middlewares/validate.documents.js')
 const {check} = require('express-validator');
 const {getUsers, postUsers, deleteUsers, putUsers, patchUsers} = require('../controllers/usuario.controllers.js')
 const Role = require('../models/Role.js');
+const Usuario = require('../models/Usuario.js');
 
 const router = Router();
 
@@ -17,10 +18,16 @@ router.post("/", [
             throw new Error(`El rol ${rol} no está registrado en la db`);
         }
     }),
+    check('email').custom(async(email='') => {
+        const existeEmail = await Usuario.find({email});
+        if (existeEmail){
+            throw new Error(`Email ya está registrado`);
+        }
+    }),
     validateDocuments
 ], postUsers);
-router.delete("/", deleteUsers);
-router.put("/", putUsers);
-router.patch("/", patchUsers);
+router.delete("/:id", deleteUsers);
+router.put("/:id", putUsers);
+router.patch("/:id", patchUsers);
 
 module.exports = router;

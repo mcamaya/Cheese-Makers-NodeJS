@@ -20,8 +20,9 @@ class Server {
         this.app.use(express.static('public'));
     }
 
-    routes(usuariosPath) {
+    routes(usuariosPath, authPath) {
         this.app.use(...usuariosPath);
+        this.app.use(...authPath);
     }
 
     listen(){
